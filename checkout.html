@@ -1,44 +1,52 @@
-<!-- checkout-panel を2カラム化 -->
-<div class="main">
-  <div class="checkout-panel" style="flex: 2;">
-    <h2>ご注文内容</h2>
-    <table id="orderTable">
-      <thead>
-        <tr><th>商品</th><th>単価</th><th>数量</th><th>小計</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+// 初期設定
+const cartData = JSON.parse(localStorage.getItem("cart") || "{}");
+const tbody = document.querySelector("#orderTable tbody");
+const totalDisplay = document.getElementById("total");
+const paidInput = document.getElementById("paidAmount");
+const changeDisplay = document.getElementById("changeAmount");
 
-    <!-- 合計金額とおつり表示 -->
-    <div style="margin-top: 10px;">
-      <p>合計金額: ¥<span id="total">0</span></p>
-      <p>お支払い額: ¥<input type="number" id="paidAmount" style="width:100px;" /></p>
-      <p>おつり: ¥<span id="changeAmount">0</span></p>
-    </div>
+let totalAmount = 0;
 
-    <button onclick="goBack()">戻る</button>
-    <button onclick="confirmOrder()" class="confirm">確定</button>
-  </div>
+// 注文テーブル生成
+Object.values(cartData).forEach(item => {
+  const subtotal = item.price * item.count;
+  totalAmount += subtotal;
 
-  <!-- 計算機パネル -->
-  <div class="checkout-panel" style="flex: 1;">
-    <h3>計算機</h3>
-    <input type="text" id="calcInput" style="width:100%; font-size:1.2em;" />
-    <div>
-      <button onclick="appendCalc('7')">7</button>
-      <button onclick="appendCalc('8')">8</button>
-      <button onclick="appendCalc('9')">9</button><br>
-      <button onclick="appendCalc('4')">4</button>
-      <button onclick="appendCalc('5')">5</button>
-      <button onclick="appendCalc('6')">6</button><br>
-      <button onclick="appendCalc('1')">1</button>
-      <button onclick="appendCalc('2')">2</button>
-      <button onclick="appendCalc('3')">3</button><br>
-      <button onclick="appendCalc('0')">0</button>
-      <button onclick="appendCalc('+')">+</button>
-      <button onclick="calculate()">=</button>
-      <button onclick="clearCalc()">C</button>
-    </div>
-  </div>
-</div>
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${item.name}</td>
+    <td>¥${item.price}</td>
+    <td>${item.count}</td>
+    <td>¥${subtotal}</td>
+  `;
+  tbody.appendChild(row);
+});
 
+// 合計を表示
+totalDisplay.textContent = totalAmount;
+
+// 支払額入力 → おつり計算
+paidInput.addEventListener("input", () => {
+  const paid = parseInt(paidInput.value) || 0;
+  const change = paid - totalAmount;
+  changeDisplay.textContent = change >= 0 ? change : 0;
+});
+
+// 戻る
+function goBack() {
+  window.location.href = "index.html";
+}
+
+// 確定処理
+function confirmOrder() {
+  const history = JSON.parse(localStorage.getItem("history") || "[]");
+  history.push({
+    timestamp: Date.now(),
+    items: cartData,
+    total: totalAmount
+  });
+  localStorage.setItem("history", JSON.stringify(history));
+  localStorage.removeItem("cart");
+  alert("注文を確定しました！");
+  window.location.href = "history.html";
+}
