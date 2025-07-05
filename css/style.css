@@ -1,0 +1,78 @@
+/* ベース設定 */
+body {
+  font-family: sans-serif;
+  background: #f5f6fa;
+  margin: 0;
+}
+
+/* 上部ナビバー */
+.navbar {
+  background: #2f3640;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* レイアウト全体 */
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* 商品カードのグリッド表示 */
+.grid {
+  flex: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+/* 商品カードデザイン */
+.product-card {
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.1s;
+}
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+/* 注文内容や会計パネル */
+.cart-panel,
+.checkout-panel,
+.history-panel {
+  flex: 1;
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+/* ボタン共通スタイル */
+button {
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px 0;
+  background-color: #dcdde1;
+}
+button:hover {
+  background-color: #c8ccd1;
+}
+
+/* 特定のボタン（緑色）の強調 */
+#checkoutBtn,
+button.confirm {
+  background-color: #44bd32;
+  color: white;
+}
