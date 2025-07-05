@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>レジシステム</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="navbar">
+    <h1>レジシステム</h1>
+    <a href="history.html"><button>取引履歴</button></a>
+  </div>
+
+  <div class="main">
+    <div class="grid" id="productsGrid"></div>
+
+    <div class="cart-panel">
+      <h2>ご注文内容</h2>
+      <ul id="cartList"></ul>
+      <button id="decreaseBtn">選択商品を1つ減らす</button>
+      <p>合計: ¥<span id="total">0</span></p>
+      <a href="checkout.html"><button id="checkoutBtn">会計へ進む</button></a>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
