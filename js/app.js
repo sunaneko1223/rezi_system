@@ -1,8 +1,8 @@
 // 商品一覧（ここをJSONから読み込むようにも変更可）
 const products = [
-  { id: 1, name: "たこやき", price: 300 },
+  { id: 1, name: "たこやき", price: 100 },
   { id: 2, name: "ジュース", price: 150 },
-  { id: 3, name: "フライドポテト", price: 250 }
+  { id: 3, name: "フライドポテト", price: 200 }
 ];
 
 const grid = document.getElementById("productsGrid");
